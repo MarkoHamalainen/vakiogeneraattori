@@ -84,21 +84,26 @@ def calculate_popular(popularities):
             popular += 'X'
     return popular
 
-def create_result(popularities):
-    result = ""
+def create_results(popularities):
+    results = []
     random.seed()
-    for x in range (13):
-        if (x == 3 or x == 6 or x == 9):
-            result += ' '
-        value = random.randint(1,10000)
-        #print(value)
-        if (value < popularities[x][0]):
-            result += '1'
-        elif (value > (popularities[x][0] + popularities[x][1])):
-            result += '2'
-        else:
-            result += 'X'
-    return result
+    print("\nGenerating weighted random results")
+    for x in range (10):
+        result = ""
+        for x in range (13):
+            if (x == 3 or x == 6 or x == 9):
+                result += ' '
+            value = random.randint(1,10000)
+            #print(value)
+            if (value < popularities[x][0]):
+                result += '1'
+            elif (value > (popularities[x][0] + popularities[x][1])):
+                result += '2'
+            else:
+                result += 'X'
+        results.append(result)
+        print(result)
+    return results
 
 def calculate_result(results):
     result = ""
@@ -129,13 +134,9 @@ def calculate_result(results):
     return result
 
 def main():
-    results = []
     id = sport_list_fetch()
     popularities = popularity_fetch(id)
-    print("\nGenerating weighted random results")
-    for x in range (10):
-        results.append(create_result(popularities))
-        print(results[x])
+    results = create_results(popularities)
     result = calculate_result(results)
     print("\nThe most popular result is: " + calculate_popular(popularities))
     print("  The calculated result is: " + result)
